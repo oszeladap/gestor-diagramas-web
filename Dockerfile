@@ -11,9 +11,14 @@ RUN npm run build
 # ── Stage 2: Runtime (Python + Java) ─────────────────────────────────────────
 FROM python:3.11-slim
 
-# Install Java for PlantUML + curl for jar download
+# Install Java for PlantUML + font libs required by Java AWT for PNG rendering
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends default-jre-headless curl && \
+    apt-get install -y --no-install-recommends \
+        default-jre-headless \
+        curl \
+        libharfbuzz0b \
+        libfontconfig1 \
+        fonts-dejavu-core && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app/backend
