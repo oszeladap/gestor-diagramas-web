@@ -1,0 +1,54 @@
+<div class="app-shell">
+  <header class="app-header">
+    <div class="header-left">
+      <div class="brand">
+        <div class="brand-icon-wrap">
+          <i class="pi pi-sitemap"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Gestor de Diagramas</span>
+          <span class="brand-sub">Mermaid · PlantUML</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-center">
+      <span class="version-badge">v1.0.0</span>
+    </div>
+
+    <div class="header-right">
+      <button class="header-btn" matTooltip="Acerca de la aplicación" (click)="openAbout()">
+        <i class="pi pi-info-circle"></i>
+        <span>Acerca de</span>
+      </button>
+      <div class="header-sep"></div>
+      <button class="header-btn" matTooltip="Configurar directorio de trabajo" (click)="openConfig()">
+        <i class="pi pi-cog"></i>
+        <span>Configuración</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-body">
+    <mat-tab-group class="main-tabs" animationDuration="200ms">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="tab-label mermaid-tab">
+            <i class="pi pi-share-alt tab-icon"></i>
+            <span>Mermaid</span>
+          </div>
+        </ng-template>
+        <app-diagram-workspace diagramType="mermaid"></app-diagram-workspace>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div class="tab-label plantuml-tab">
+            <i class="pi pi-diagram-2 tab-icon"></i>
+            <span>PlantUML</span>
+          </div>
+        </ng-template>
+        <app-diagram-workspace diagramType="plantuml"></app-diagram-workspace>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

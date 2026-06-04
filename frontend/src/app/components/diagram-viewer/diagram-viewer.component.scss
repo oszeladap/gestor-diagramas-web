@@ -1,0 +1,131 @@
+.viewer-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: #fafafa;
+
+  // ── Barra de herramientas ─────────────────────────────────────────────────
+  .viewer-toolbar {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    background: #f5f5f5;
+    border-bottom: 1px solid #e0e0e0;
+    min-height: 40px;
+    flex-shrink: 0;
+    gap: 2px;
+
+    .zoom-label {
+      font-size: 12px;
+      color: #666;
+      min-width: 46px;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+    .sep {
+      flex: 1;
+    }
+    button {
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+      mat-icon { font-size: 18px; }
+    }
+  }
+
+  // ── Canvas principal ──────────────────────────────────────────────────────
+  .viewer-canvas {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    background: repeating-linear-gradient(
+      45deg,
+      #eeeeee 0px, #eeeeee 10px,
+      #f8f8f8 10px, #f8f8f8 20px
+    );
+    cursor: grab;
+    user-select: none;
+    &:active { cursor: grabbing; }
+  }
+
+  // ── Overlays ──────────────────────────────────────────────────────────────
+  .overlay, .error-overlay, .empty-state {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    z-index: 20;
+    pointer-events: none;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(2px);
+  }
+
+  .error-overlay {
+    .error-icon { font-size: 48px; color: #d32f2f; width: 48px; height: 48px; }
+    .error-title { font-size: 16px; font-weight: 600; color: #d32f2f; }
+    .error-detail {
+      font-size: 12px;
+      color: #555;
+      text-align: left;
+      max-width: 500px;
+      max-height: 200px;
+      overflow-y: auto;
+      padding: 8px 16px;
+      margin: 0;
+      background: #fff8f8;
+      border: 1px solid #ffc5c5;
+      border-radius: 4px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  }
+
+  .empty-state {
+    mat-icon { font-size: 64px; width: 64px; height: 64px; color: #ccc; }
+    span { font-size: 14px; color: #aaa; }
+  }
+
+  // ── Wrapper del diagrama ──────────────────────────────────────────────────
+  // ⚠ NO usar will-change: transform aquí — causa rasterización GPU
+  //   que degrada la calidad del texto SVG a niveles de zoom bajos.
+  .diagram-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: top left;
+    // will-change sólo mientras se arrastra (clase toggle desde TS)
+    &.dragging { will-change: transform; }
+  }
+
+  // ── Contenido del diagrama ────────────────────────────────────────────────
+  .diagram-content {
+    padding: 16px;
+    border-radius: 4px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    background: #fff;
+    display: inline-block;
+
+    // ── Calidad máxima para SVG ──────────────────────────────────────────
+    svg {
+      display: block;
+      // Renderizado geométrico preciso (sin suavizado que borra)
+      shape-rendering:  geometricPrecision;
+      text-rendering:   geometricPrecision;
+      // No recortar el contenido
+      overflow: visible;
+    }
+
+    // ── Imágenes raster (PlantUML PNG/JPG) ──────────────────────────────
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }
+  }
+}

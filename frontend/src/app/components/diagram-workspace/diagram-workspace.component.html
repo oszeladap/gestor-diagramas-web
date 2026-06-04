@@ -1,0 +1,115 @@
+<div class="workspace-root">
+
+  <!-- ── Toolbar principal ── -->
+  <div class="workspace-toolbar">
+
+    <!-- Botón Visualizar -->
+    <button class="btn-visualize" (click)="visualize()">
+      <i class="pi pi-play-circle"></i>
+      Visualizar
+    </button>
+
+    <div class="toolbar-sep"></div>
+
+    <!-- Tamaño de página -->
+    <div class="toolbar-group">
+      <label class="group-label"><i class="pi pi-file"></i> Tamaño</label>
+      <mat-select [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChange()"
+        class="page-select">
+        <mat-option *ngFor="let ps of pageSizes" [value]="ps.key">{{ ps.label }}</mat-option>
+      </mat-select>
+    </div>
+
+    <!-- Dimensiones custom -->
+    <ng-container *ngIf="isCustom">
+      <div class="toolbar-group dim-group">
+        <label class="group-label">Ancho</label>
+        <input type="number" [(ngModel)]="customWidth" min="100" max="5000" class="dim-input">
+        <span class="dim-unit">px</span>
+      </div>
+      <div class="toolbar-group dim-group">
+        <label class="group-label">Alto</label>
+        <input type="number" [(ngModel)]="customHeight" min="100" max="5000" class="dim-input">
+        <span class="dim-unit">px</span>
+      </div>
+    </ng-container>
+
+    <!-- Color de fondo -->
+    <div class="toolbar-group color-group">
+      <label class="group-label"><i class="pi pi-palette"></i> Fondo</label>
+      <div class="color-controls">
+        <div class="color-picker-wrap" [class.disabled]="transparentBg">
+          <input type="color" [(ngModel)]="backgroundColor"
+            [disabled]="transparentBg"
+            class="color-input"
+            title="Seleccionar color de fondo">
+          <span class="color-hex">{{ transparentBg ? 'Auto' : backgroundColor }}</span>
+        </div>
+        <button class="transparent-btn"
+          [class.active]="transparentBg"
+          (click)="onTransparentToggle()"
+          title="{{ transparentBg ? 'Usar color sólido' : 'Sin relleno (transparente)' }}">
+          <i class="pi pi-ban"></i>
+          <span>Sin relleno</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <!-- Guardar / Abrir -->
+    <div class="file-actions">
+      <button class="btn-action" (click)="openFilesDialog()">
+        <i class="pi pi-folder-open"></i> Abrir
+      </button>
+      <button class="btn-action btn-save" (click)="openSaveDialog()">
+        <i class="pi pi-save"></i> Guardar
+        <span *ngIf="isDirty" class="dirty-dot" title="Cambios sin guardar"></span>
+      </button>
+    </div>
+
+    <!-- Estado de guardado -->
+    <div class="save-status" *ngIf="lastSavedLabel">
+      <i class="pi pi-check-circle"></i>
+      {{ lastSavedLabel }}
+    </div>
+  </div>
+
+  <!-- ── Mensajes de validación ── -->
+  <div class="validation-bar" *ngIf="validationErrors.length > 0 || validationWarnings.length > 0">
+    <div class="val-row errors" *ngIf="validationErrors.length > 0">
+      <i class="pi pi-times-circle"></i>
+      <span *ngFor="let e of validationErrors" class="val-chip err">{{ e }}</span>
+    </div>
+    <div class="val-row warnings" *ngIf="validationWarnings.length > 0">
+      <i class="pi pi-exclamation-triangle"></i>
+      <span *ngFor="let w of validationWarnings" class="val-chip warn">{{ w }}</span>
+    </div>
+  </div>
+
+  <!-- ── Paneles ── -->
+  <div class="workspace-panels">
+    <div class="panel left-panel" [style.width.%]="leftWidth">
+      <app-code-editor
+        #codeEditor
+        [diagramType]="diagramType"
+        [code]="code"
+        (codeChange)="onCodeChange($event)"
+        (fileOpened)="onFileOpened($event)">
+      </app-code-editor>
+    </div>
+
+    <div class="resize-handle" (mousedown)="startResize($event)" title="Arrastra para redimensionar">
+      <div class="resize-grip">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div class="panel right-panel" [style.width.%]="100 - leftWidth">
+      <app-diagram-viewer
+        #diagramViewer
+        [backgroundColor]="effectiveBgColor">
+      </app-diagram-viewer>
+    </div>
+  </div>
+</div>

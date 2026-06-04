@@ -1,0 +1,122 @@
+// ─── Google Material Icons ────────────────────────────────────────────────────
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+// ─── Tipografía ───────────────────────────────────────────────────────────────
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+// ─── Reset base ───────────────────────────────────────────────────────────────
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  height: 100%; margin: 0; padding: 0; overflow: hidden;
+  font-family: 'Inter', 'Segoe UI', Roboto, Arial, sans-serif;
+  font-size: 14px;
+  background: #eef2ff;
+  color: #1a1f36;
+  -webkit-font-smoothing: antialiased;
+}
+
+// ─── Design Tokens ────────────────────────────────────────────────────────────
+:root {
+  --color-primary:      #1e40af;
+  --color-primary-dark: #1e3a8a;
+  --color-primary-light:#3b82f6;
+  --color-accent:       #7c3aed;
+  --color-accent-light: #a78bfa;
+  --color-success:      #059669;
+  --color-warning:      #d97706;
+  --color-danger:       #dc2626;
+
+  --bg-app:     #eef2ff;
+  --bg-panel:   #ffffff;
+  --bg-toolbar: #f8fafc;
+  --bg-header:  #1e40af;
+
+  --border:     #e2e8f0;
+  --border-focus: #3b82f6;
+
+  --text-primary:   #0f172a;
+  --text-secondary: #64748b;
+  --text-muted:     #94a3b8;
+
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:  0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -1px rgba(0,0,0,.06);
+  --shadow-lg:  0 10px 25px -5px rgba(0,0,0,.12), 0 5px 10px -5px rgba(0,0,0,.07);
+  --shadow-xl:  0 20px 40px -10px rgba(30,64,175,.25);
+
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  16px;
+  --radius-xl:  24px;
+}
+
+// ─── PrimeNG overrides ────────────────────────────────────────────────────────
+.p-button {
+  font-family: inherit;
+  font-weight: 500;
+  letter-spacing: .02em;
+  transition: all .18s ease;
+}
+.p-button.p-button-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  border: none;
+  box-shadow: 0 4px 12px rgba(59,130,246,.35);
+  &:hover { box-shadow: 0 6px 18px rgba(59,130,246,.45); filter: brightness(1.07); }
+}
+.p-button.p-button-outlined {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  &:hover { background: rgba(59,130,246,.06); }
+}
+.p-inputtext {
+  font-family: inherit;
+  border-radius: var(--radius-sm);
+  border-color: var(--border);
+  &:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(59,130,246,.15); }
+}
+.p-dialog .p-dialog-header {
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+  color: #fff;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  .p-dialog-title { font-weight: 700; font-size: 1.1rem; letter-spacing: .02em; }
+  .p-dialog-header-icon { color: rgba(255,255,255,.75); &:hover { color: #fff; background: rgba(255,255,255,.12); } }
+}
+.p-dialog .p-dialog-content { padding: 1.25rem 1.5rem; }
+.p-dialog .p-dialog-footer { padding: .75rem 1.5rem 1.25rem; }
+.p-dialog { border-radius: var(--radius-md); box-shadow: var(--shadow-xl); }
+.p-divider.p-divider-horizontal::before { border-top-color: var(--border); }
+.p-tag { font-family: inherit; font-weight: 600; letter-spacing: .04em; }
+.p-card { border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+
+// ─── Material overrides ───────────────────────────────────────────────────────
+.mat-mdc-form-field .mat-mdc-form-field-subscript-wrapper { display: none; }
+.mat-mdc-text-field-wrapper { padding-bottom: 0 !important; }
+.mat-mdc-form-field { font-family: inherit; }
+.mat-mdc-tab-label-container { background: #fff; }
+
+// ─── Snackbar ─────────────────────────────────────────────────────────────────
+.success-snack {
+  --mdc-snackbar-container-color: #065f46;
+  --mdc-snackbar-supporting-text-color: #fff;
+  border-left: 4px solid #34d399 !important;
+}
+.error-snack {
+  --mdc-snackbar-container-color: #7f1d1d;
+  --mdc-snackbar-supporting-text-color: #fff;
+  border-left: 4px solid #f87171 !important;
+}
+.warning-snack {
+  --mdc-snackbar-container-color: #78350f;
+  --mdc-snackbar-supporting-text-color: #fff;
+  border-left: 4px solid #fbbf24 !important;
+}
+.info-snack {
+  --mdc-snackbar-container-color: #1e3a8a;
+  --mdc-snackbar-supporting-text-color: #fff;
+  border-left: 4px solid #60a5fa !important;
+}
+
+// ─── Scrollbars ───────────────────────────────────────────────────────────────
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
