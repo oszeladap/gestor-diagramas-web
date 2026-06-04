@@ -1,0 +1,26 @@
+# Python
+backend/venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/*.pyc
+backend/app_config.json
+backend/plantuml.jar
+
+# Node / Angular
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+
+# Git & IDE
+.git/
+.claude/
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docs / scripts solo locales
+*.bat
+INSTRUCCIONES.md
