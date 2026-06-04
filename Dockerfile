@@ -16,6 +16,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         default-jre-headless \
         curl \
+        graphviz \
         libharfbuzz0b \
         libfontconfig1 \
         fonts-dejavu-core && \
